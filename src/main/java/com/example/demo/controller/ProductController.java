@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.Product;
@@ -35,17 +36,21 @@ public class ProductController {
 		return body;
 	}
 	
-	@GetMapping("/product/{productId}")
-	public Product getEmployeeDetail(@PathVariable Integer productId) {
+	@GetMapping("/productSearch")
+	public List<Product> getSearchDetail(@RequestParam String productName, @RequestParam String productDetail) {
+		List<Product> found = new ArrayList<Product>();
 
 		for (int i = 0; i < data.size(); i++) {
-			if (productId == data.get(i).getProductID()) {
+			
+			if (data.get(i).getProductName().contains(productName) && productName != ""
+					|| data.get(i).getProductDetail().contains(productDetail) && productDetail != "" ) {
 				
-				return data.get(i);
+				 found.add(data.get(i));
 			}
+			
 		}
 
-		return null;
+		return found;
 	}
 	
 	@PutMapping("/product/{productId}")
