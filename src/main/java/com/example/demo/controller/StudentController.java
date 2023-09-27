@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.model.Student;
 import com.example.demo.repository.StudentRepository;
 
+@CrossOrigin(origins = "*")
 @RestController
 public class StudentController {
 
